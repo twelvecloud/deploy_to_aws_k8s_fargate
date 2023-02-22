@@ -14,7 +14,7 @@ acid-axelor-cluster.yaml
 ## Install Pgadmin
 yml files found in k8s
 
-# install nginx ingress operator
+## install nginx ingress operator
 
 source files from [https://github.com/nginxinc/nginx-ingress-helm-operator](https://github.com/nginxinc/nginx-ingress-helm-operator)
 
