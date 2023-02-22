@@ -1,0 +1,27 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  labels:
+    team: acid
+  name: acid-axelor-cluster
+  namespace: default
+spec:
+  allowedSourceRanges: null
+  databases:
+    axelor: axelor
+  numberOfInstances: 1
+  postgresql:
+    version: '14'
+  patroni:
+    pg_hba:
+      - local   all all           trust
+      - host    all all 127.0.0.1/32 trust
+      - host    all all 0.0.0.0/0 md5
+      - hostssl all all 0.0.0.0/0 md5
+      - local   replication     all                            md5
+      - host    replication     all             0.0.0.0/0      md5
+  teamId: acid
+  users:
+    axelor: []
+  volume:
+    size: 12Gi

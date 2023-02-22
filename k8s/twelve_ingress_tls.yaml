@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: t2-balder.nablanalytics.com
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "7200"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "7200"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/issuer: "letsencrypt-prod"
+    namespace: default
+
+spec:
+  tls:
+  - hosts:
+    - t2-balder.nablanalytics.com
+    secretName: t2-nablanalytics-tls
+  rules:
+    - host: t2-balder.nablanalytics.com
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: twelvecloudbs
+                port:
+                  number: 80
+            path: /
